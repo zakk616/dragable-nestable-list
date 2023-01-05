@@ -1,0 +1,91 @@
+ul.dnl-list
+{
+
+    li
+    {
+        &>span, &>span span
+        {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .material-icons
+            {
+                cursor: pointer;
+                user-select: none;
+            }
+
+            .dnl-grab-icon
+            {
+                margin-right: 20px;
+                cursor: grab;
+                user-select: none;
+
+            }
+            .dnl-index
+            {
+                
+                margin-right: 10px;
+
+            }
+        }
+
+        &.dnl-has-nested-ul
+        {
+            cursor: pointer;
+        }
+
+        &.dnl-section-open>span .dnl-icon-collapsed
+        {
+            display: none;
+        }
+
+        &:not(.dnl-section-open)>span .dnl-icon-expanded
+        {
+            display: none;
+        }
+
+        // Every nested ul
+        &>ul
+        {
+            padding: 0;
+            margin-top: 20px;
+        }
+        &:not(.dnl-section-open)>ul
+        {
+            display: none;
+        }
+
+        &.cloneLiBeingDragged
+        {
+            position:fixed;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            pointer-events: none;
+            box-sizing: border-box;
+            display: none;
+            // border: 1px solid gray;
+            // background-color: white;
+        
+        }
+
+        &.dnlHovering
+        {
+            background-color: rgba(0,0,0, 0.05);
+        }
+
+        &.potentialNewSpotLi.top
+        {
+            border-top:2px solid red !important;
+        }
+
+        &.potentialNewSpotLi.bottom
+        {
+            border-bottom:2px solid red !important;
+        }
+    
+    }
+
+}

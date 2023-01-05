@@ -1,0 +1,56 @@
+ul.dnl-list li > span,
+ul.dnl-list li > span span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+ul.dnl-list li > span .material-icons,
+ul.dnl-list li > span span .material-icons {
+  cursor: pointer;
+  user-select: none;
+}
+ul.dnl-list li > span .dnl-grab-icon,
+ul.dnl-list li > span span .dnl-grab-icon {
+  margin-right: 20px;
+  cursor: grab;
+  user-select: none;
+}
+ul.dnl-list li > span .dnl-index,
+ul.dnl-list li > span span .dnl-index {
+  margin-right: 10px;
+}
+ul.dnl-list li.dnl-has-nested-ul {
+  cursor: pointer;
+}
+ul.dnl-list li.dnl-section-open > span .dnl-icon-collapsed {
+  display: none;
+}
+ul.dnl-list li:not(.dnl-section-open) > span .dnl-icon-expanded {
+  display: none;
+}
+ul.dnl-list li > ul {
+  padding: 0;
+  margin-top: 20px;
+}
+ul.dnl-list li:not(.dnl-section-open) > ul {
+  display: none;
+}
+ul.dnl-list li.cloneLiBeingDragged {
+  position: fixed;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  box-sizing: border-box;
+  display: none;
+}
+ul.dnl-list li.dnlHovering {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+ul.dnl-list li.potentialNewSpotLi.top {
+  border-top: 2px solid #00a650 !important;
+}
+ul.dnl-list li.potentialNewSpotLi.bottom {
+  border-bottom: 2px solid #00a650 !important;
+}
