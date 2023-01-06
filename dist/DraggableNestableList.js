@@ -222,7 +222,7 @@ class DraggableNestableList
     indexLis(ul) 
     {  
         ul.children("li").each((i,e)=>{
-            $(e).find(".dnl-index").first().text(`${i + 1}. `);
+            $(e).find(".dnl-index").first().text(`${i + 1} `);
 
             if($(e).children("ul").length)
                 this.indexLis($(e).children("ul").first());

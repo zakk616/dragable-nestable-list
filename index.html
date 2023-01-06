@@ -9,66 +9,57 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="dist/DraggableNestableList.min.css">
+    <script src="data.js"></script>
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-8">
-                <ul id="myList" class="list-group">
-                    <li class="list-group-item">simple item 1</li>
-                    <li class="list-group-item">simple item 2</li>
-                    <li class="list-group-item">simple item 3
-                        <ul class="list-group">
-                            <li class="list-group-item">simple item 1</li>
-                            <li class="list-group-item">simple item 2</li>
-                            <li class="list-group-item">simple item 3</li>
-                            <li class="list-group-item">
-                                Nested Item 2
-                                <ul class="list-group">
-                                    <li class="list-group-item">simple item 1</li>
-                                    <li class="list-group-item">simple item 2</li>
-                                    <li class="list-group-item">simple item 3</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="list-group-item">Nested Item 1
-                        <ul class="list-group">
-                            <li class="list-group-item">simple item 1</li>
-                            <li class="list-group-item">simple item 2</li>
-                            <li class="list-group-item">simple item 3</li>
-                        </ul>
-                    </li>
-                </ul>
+                <ul id="myList" class="list-group"></ul>
             </div>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="dist/DraggableNestableList.js"></script>
-
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VDDWMRSTH"></script> -->
     <script>
-        // window.dataLayer = window.dataLayer || [];
-        // function gtag() { dataLayer.push(arguments); }
-        // gtag('js', new Date());
-        // gtag('config', 'G-1VDDWMRSTH');
-
+        var orderList =[];
+        appendMenus($("#myList"), json);
         let dnl = new DraggableNestableList("#myList");
+        getUpdatedOrder(document.getElementById("myList"));
+        console.log(orderList);
 
-        // try {
-        //     fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function (response) {
-        //         return true;
-        //     }).catch(function (e) {
-        //         var carbonScript = document.createElement("script");
-        //         carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
-        //         carbonScript.id = "_carbonads_js";
-        //         document.getElementById("carbon-block").appendChild(carbonScript);
-        //     });
-        // } catch (error) {
-        //     console.log(error);
-        // }
+
+        function appendMenus(parent, menu) {
+            for (var i = 0; i < menu.length; i++) {
+                var submenu = parent.append('<li class="list-group-item">'+
+                    '<span class="material-icons dnl-grab-icon">'+menu[i].icon+'</span>'+
+                    '<span class="dnl-item" data-id="' + menu[i].mid + '">' + menu[i].name + '</span></li>')
+                    .find("li:last");
+
+                if (menu[i].children != undefined && menu[i].children.length > 0) {
+                    submenu = submenu.append('<ul class="list-group"></ul>').find("ul");
+                    appendMenus(submenu, menu[i].children);
+                }
+            }
+        }
+
+        
+        function getUpdatedOrder(ul) {
+            var items = ul.children;
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var index = item.querySelector('.dnl-index').innerHTML;
+                var id = item.querySelector('.dnl-item').getAttribute("data-id");
+                var text = item.querySelector('.dnl-item').textContent;
+                orderList.push({id, text, order:index})
+
+                if (item.querySelector("ul")) {
+                    getUpdatedOrder(item.querySelector("ul"));
+                }
+            }
+        }
     </script>
 </body>
 
